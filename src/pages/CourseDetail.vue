@@ -51,13 +51,15 @@
 
 <script>
 import axios from "axios";
-import jwtDecode from "jwt-decode";
 
 export default {
   data() {
     return {
       course: null,
       isEnrolled: false,
+      accessToken: null,
+      userId: null,
+      courseId: null,
     };
   },
   computed: {
@@ -66,17 +68,14 @@ export default {
     },
   },
   mounted() {
-    const courseId = this.$route.params.id;
+    this.courseId = this.$route.params.id;
 
     // Get accessToken from local storage
-    const accessToken = localStorage.getItem("accessToken");
-
-    // Decode the token to get user ID
-    const decodedToken = jwtDecode(accessToken);
-    const userId = decodedToken.user_id;
+    this.accessToken = localStorage.getItem("accessToken");
+    this.userId = localStorage.getItem("user_id");
 
     axios
-      .get(`http://localhost:3000/api/courses/${userId}/${courseId}`)
+      .get(`http://localhost:3000/api/courses/${this.courseId}`)
       .then((response) => {
         this.course = response.data;
       })
@@ -84,16 +83,16 @@ export default {
         console.error("Error fetching course details:", error);
       });
 
-    this.checkEnrollmentStatus(userId, courseId);
+    this.checkEnrollmentStatus();
   },
   methods: {
-    checkEnrollmentStatus(userId, courseId) {
+    checkEnrollmentStatus() {
       axios
         .get(
-          `http://localhost:3000/api/enrollment/check/${userId}/${courseId}`,
+          `http://localhost:3000/api/enrollment/check/${this.userId}/${this.courseId}`,
           {
             headers: {
-              "x-access-token": accessToken,
+              "x-access-token": this.accessToken,
             },
           }
         )
@@ -107,8 +106,8 @@ export default {
     enroll() {
       // Use userId and courseId to make the enrollment request
       const enrollmentData = {
-        user_id: userId,
-        course_id: courseId,
+        user_id: this.userId,
+        course_id: this.courseId,
       };
 
       axios

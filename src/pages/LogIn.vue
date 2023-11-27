@@ -55,10 +55,9 @@ export default {
         .then((response) => {
           console.log(response.data);
 
-          // Set user information in local storage
           localStorage.setItem("accessToken", response.data.accessToken);
-          localStorage.setItem("user_id", response.data.id);
-          localStorage.setItem("role", response.data.role);
+          localStorage.setItem("user_id", response.data.user.user_id);
+          localStorage.setItem("role", response.data.user.role);
 
           this.$router.push("/courses");
         })
