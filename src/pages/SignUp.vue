@@ -71,6 +71,10 @@ export default {
         })
         .then((response) => {
           console.log("Response:", response.data);
+
+          // Set user_id, role, and accessToken in local storage
+          localStorage.setItem("user_id", response.data.id);
+          localStorage.setItem("role", response.data.role);
           localStorage.setItem("accessToken", response.data.accessToken);
 
           Notify.create({

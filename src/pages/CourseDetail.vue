@@ -28,7 +28,6 @@
         </li>
       </ul>
 
-      <!-- Enroll Button -->
       <q-btn
         v-if="shouldShowEnrollButton"
         @click="enroll"
@@ -39,7 +38,6 @@
         size="md"
       />
 
-      <!-- Link to navigate back to the course list -->
       <router-link to="/courses" class="text-subtitle1 q-mt-md"
         >Back to Course List</router-link
       >
@@ -53,7 +51,7 @@
 
 <script>
 import axios from "axios";
-import jwtDecode from 'jwt-decode';
+import jwtDecode from "jwt-decode";
 
 export default {
   data() {
@@ -70,8 +68,10 @@ export default {
   mounted() {
     const courseId = this.$route.params.id;
 
+    // Get accessToken from local storage
     const accessToken = localStorage.getItem("accessToken");
-    console.log(accessToken);
+
+    // Decode the token to get user ID
     const decodedToken = jwtDecode(accessToken);
     const userId = decodedToken.user_id;
 
@@ -87,13 +87,7 @@ export default {
     this.checkEnrollmentStatus(userId, courseId);
   },
   methods: {
-    checkEnrollmentStatus() {
-      const courseId = this.$route.params.id;
-      const accessToken = localStorage.getItem("accessToken");
-
-      const decodedToken = jwtDecode(accessToken);
-      const userId = decodedToken.user_id;
-
+    checkEnrollmentStatus(userId, courseId) {
       axios
         .get(
           `http://localhost:3000/api/enrollment/check/${userId}/${courseId}`,
@@ -111,13 +105,24 @@ export default {
         });
     },
     enroll() {
-      // Add your enrollment logic here
-      console.log("Enrollment logic goes here");
+      // Use userId and courseId to make the enrollment request
+      const enrollmentData = {
+        user_id: userId,
+        course_id: courseId,
+      };
+
+      axios
+        .post("http://localhost:3000/api/enrollment/", enrollmentData)
+        .then((response) => {
+          console.log("Enrollment successful:", response.data);
+          this.isEnrolled = true;
+        })
+        .catch((error) => {
+          console.error("Error enrolling:", error);
+        });
     },
   },
 };
 </script>
 
-<style scoped>
-/* Add your custom styles here */
-</style>
+<style scoped></style>

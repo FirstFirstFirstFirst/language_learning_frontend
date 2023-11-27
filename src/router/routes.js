@@ -19,6 +19,11 @@ const routes = [
         name: "signup",
         component: () => import("src/pages/SignUp.vue"),
       },
+      {
+        path: "/token",
+        name: "token",
+        component: () => import("src/pages/Token.vue"),
+      },
     ],
   },
 
