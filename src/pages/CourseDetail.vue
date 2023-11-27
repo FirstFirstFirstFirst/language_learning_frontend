@@ -8,16 +8,41 @@
 
       <h3 class="text-h5 q-mb-md">Lesson Plans</h3>
       <ul class="q-pl-md">
-        <li v-for="lessonPlan in course.lessonPlans" :key="lessonPlan.id" class="text-body2 q-mb-xs">{{ lessonPlan.title }}</li>
+        <li
+          v-for="lessonPlan in course.lessonPlans"
+          :key="lessonPlan.id"
+          class="text-body2 q-mb-xs"
+        >
+          {{ lessonPlan.title }}
+        </li>
       </ul>
 
       <h3 class="text-h5 q-mb-md">Sample Lessons</h3>
       <ul class="q-pl-md">
-        <li v-for="lesson in course.sampleLessons" :key="lesson.id" class="text-body2 q-mb-xs">{{ lesson.title }}</li>
+        <li
+          v-for="lesson in course.sampleLessons"
+          :key="lesson.id"
+          class="text-body2 q-mb-xs"
+        >
+          {{ lesson.title }}
+        </li>
       </ul>
 
+      <!-- Enroll Button -->
+      <q-btn
+        v-if="shouldShowEnrollButton"
+        @click="enroll"
+        color="primary"
+        label="Enroll"
+        icon="school"
+        class="q-mt-md"
+        size="md"
+      />
+
       <!-- Link to navigate back to the course list -->
-      <router-link to="/courses" class="text-subtitle1 q-mt-md">Back to Course List</router-link>
+      <router-link to="/courses" class="text-subtitle1 q-mt-md"
+        >Back to Course List</router-link
+      >
     </div>
     <div v-else>
       <q-spinner-square size="80px" color="primary" />
@@ -27,27 +52,72 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
+import jwtDecode from 'jwt-decode';
 
 export default {
   data() {
     return {
       course: null,
+      isEnrolled: false,
     };
+  },
+  computed: {
+    shouldShowEnrollButton() {
+      return !this.isEnrolled;
+    },
   },
   mounted() {
     const courseId = this.$route.params.id;
 
-    axios.get(`http://localhost:3000/api/courses/${courseId}`)
-      .then(response => {
+    const accessToken = localStorage.getItem("accessToken");
+    console.log(accessToken);
+    const decodedToken = jwtDecode(accessToken);
+    const userId = decodedToken.user_id;
+
+    axios
+      .get(`http://localhost:3000/api/courses/${userId}/${courseId}`)
+      .then((response) => {
         this.course = response.data;
       })
-      .catch(error => {
-        console.error('Error fetching course details:', error);
+      .catch((error) => {
+        console.error("Error fetching course details:", error);
       });
+
+    this.checkEnrollmentStatus(userId, courseId);
+  },
+  methods: {
+    checkEnrollmentStatus() {
+      const courseId = this.$route.params.id;
+      const accessToken = localStorage.getItem("accessToken");
+
+      const decodedToken = jwtDecode(accessToken);
+      const userId = decodedToken.user_id;
+
+      axios
+        .get(
+          `http://localhost:3000/api/enrollment/check/${userId}/${courseId}`,
+          {
+            headers: {
+              "x-access-token": accessToken,
+            },
+          }
+        )
+        .then((response) => {
+          this.isEnrolled = response.data.isEnrolled;
+        })
+        .catch((error) => {
+          console.error("Error checking enrollment status:", error);
+        });
+    },
+    enroll() {
+      // Add your enrollment logic here
+      console.log("Enrollment logic goes here");
+    },
   },
 };
 </script>
 
 <style scoped>
+/* Add your custom styles here */
 </style>
