@@ -24,6 +24,12 @@ const routes = [
         name: "token",
         component: () => import("src/pages/Token.vue"),
       },
+      {
+        path: "/enrolled",
+        name: "enrolled",
+        component: () => import("src/pages/EnRolled.vue"),
+      },
+
     ],
   },
   {
