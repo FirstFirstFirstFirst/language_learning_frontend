@@ -54,6 +54,7 @@
             </q-item-section>
           </q-item>
         </q-list>
+        <router-link to="/enrolled">My enrolled</router-link>
       </div>
       <div v-else>
         <q-spinner-square size="80px" color="primary" />

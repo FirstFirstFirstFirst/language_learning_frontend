@@ -1,39 +1,41 @@
 <template>
   <q-page class="flex flex-center">
     <q-card dark bordered class="bg-grey-2 my-card q-px-md p-py-md">
-      <div>
-        <h2 style="color: black; font-weight: 50">Sign up</h2>
+      <div class="signup-header">
+        <h2 class="text-big">Sign up</h2>
       </div>
       <q-card-section>
         <q-form @submit.prevent="signUp">
-          <div>
-            <q-input v-model="username" type="text" label="Username" />
+          <div class="form-group">
+            <label for="username" class="form-label">Username</label>
+            <q-input v-model="username" type="text" id="username" />
           </div>
-          <div>
-            <q-input v-model="email" label="Email"> </q-input>
+          <div class="form-group">
+            <label for="email" class="form-label">Email</label>
+            <q-input v-model="email" type="email" id="email" />
           </div>
-          <div>
-            <q-input v-model="password" label="Password"> </q-input>
+          <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <q-input v-model="password" type="password" id="password" />
           </div>
-          <div>
-            <q-input v-model="firstname" label="First Name"> </q-input>
+          <div class="form-group">
+            <label for="firstname" class="form-label">First Name</label>
+            <q-input v-model="firstname" type="text" id="firstname" />
           </div>
-          <div>
-            <q-input v-model="lastname" label="Last Name"> </q-input>
+          <div class="form-group">
+            <label for="lastname" class="form-label">Last Name</label>
+            <q-input v-model="lastname" type="text" id="lastname" />
           </div>
-          <div>
+          <div class="form-group">
             <q-btn
               label="Sign up"
               type="submit"
               color="primary"
-              style="width: 100%"
+              class="signup-btn"
             />
           </div>
-          <div>
-            <text-caption style="color: black"
-              >Registered?
-              <a href="/">Login here</a>
-            </text-caption>
+          <div class="login-link">
+            <text-caption>Registered? <router-link to="/">Login here</router-link></text-caption>
           </div>
         </q-form>
       </q-card-section>
@@ -53,7 +55,7 @@ export default {
       password: "",
       firstname: "",
       lastname: "",
-      role: "",
+      role: "user",
     };
   },
   methods: {
@@ -67,7 +69,7 @@ export default {
           password: this.password,
           firstname: this.firstname,
           lastname: this.lastname,
-          role: "user",
+          role: this.role,
         })
         .then((response) => {
           console.log("Response:", response.data);
@@ -96,3 +98,63 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.text-big {
+  font-size: 2em;
+  margin: 20px 0;
+  font-weight: bold;
+  color: #3498db; /* Blue color for the heading */
+}
+
+.my-card {
+  background-color: #f5f5f5; /* Light gray background color */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle lift */
+  width: 80%; /* Set the desired width */
+  max-width: 600px; /* Maximum width to maintain readability */
+}
+
+.signup-header {
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  font-size: 1.2em;
+  margin-bottom: 5px;
+  display: block;
+  color: #333;
+}
+
+.signup-btn {
+  width: 100%;
+  background-color: #e67e22; /* Orange color for the button */
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 10px;
+  transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+.signup-btn:hover {
+  background-color: #d35400; /* Darker orange on hover */
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 20px;
+  color: #666;
+}
+
+/* Additional styles for responsiveness */
+@media screen and (max-width: 600px) {
+  .my-card {
+    width: 90%;
+    max-width: 400px;
+  }
+}
+</style>

@@ -29,6 +29,7 @@ const routes = [
         name: "enrolled",
         component: () => import("src/pages/EnRolled.vue"),
       },
+      
 
     ],
   },

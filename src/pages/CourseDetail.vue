@@ -1,32 +1,38 @@
 <template>
   <div class="course-detail-page">
     <div v-if="course">
-      <h2 class="text-h3 q-mb-md">{{ course.title }}</h2>
-      <p class="text-body1 q-mb-md">{{ course.description }}</p>
-      <p class="text-subtitle2 q-mb-md">Syllabus: {{ course.syllabus }}</p>
-      <p class="text-subtitle2 q-mb-md">Price: ${{ course.pricing }}</p>
+      <h2 class="course-title">{{ course.title }}</h2>
+      <p class="course-description">{{ course.description }}</p>
+      <div class="course-info">
+        <p class="course-info-item">Syllabus: {{ course.syllabus }}</p>
+        <p class="course-info-item">Price: ${{ course.pricing }}</p>
+      </div>
 
-      <h3 class="text-h5 q-mb-md">Lesson Plans</h3>
-      <ul class="q-pl-md">
-        <li
-          v-for="lessonPlan in course.lessonPlans"
-          :key="lessonPlan.id"
-          class="text-body2 q-mb-xs"
-        >
-          {{ lessonPlan.title }}
-        </li>
-      </ul>
+      <div class="course-section">
+        <h3 class="course-section-title">Lesson Plans</h3>
+        <ul class="course-list">
+          <li
+            v-for="lessonPlan in course.lessonPlans"
+            :key="lessonPlan.id"
+            class="course-list-item"
+          >
+            {{ lessonPlan.title }}
+          </li>
+        </ul>
+      </div>
 
-      <h3 class="text-h5 q-mb-md">Sample Lessons</h3>
-      <ul class="q-pl-md">
-        <li
-          v-for="lesson in course.sampleLessons"
-          :key="lesson.id"
-          class="text-body2 q-mb-xs"
-        >
-          {{ lesson.title }}
-        </li>
-      </ul>
+      <div class="course-section">
+        <h3 class="course-section-title">Sample Lessons</h3>
+        <ul class="course-list">
+          <li
+            v-for="lesson in course.sampleLessons"
+            :key="lesson.id"
+            class="course-list-item"
+          >
+            {{ lesson.title }}
+          </li>
+        </ul>
+      </div>
 
       <q-btn
         v-if="shouldShowEnrollButton"
@@ -34,17 +40,17 @@
         color="primary"
         label="Enroll"
         icon="school"
-        class="q-mt-md"
+        class="enroll-button"
         size="md"
       />
 
-      <router-link to="/courses" class="text-subtitle1 q-mt-md"
+      <router-link to="/courses" class="back-link"
         >Back to Course List</router-link
       >
     </div>
     <div v-else>
       <q-spinner-square size="80px" color="primary" />
-      <p class="text-h6 q-mt-md">Loading...</p>
+      <p class="loading-message">Loading...</p>
     </div>
   </div>
 </template>
@@ -123,4 +129,75 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.course-detail-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.course-title {
+  font-size: 2em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.course-description {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.course-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.course-info-item {
+  color: #555;
+}
+
+.course-section {
+  margin-bottom: 30px;
+}
+
+.course-section-title {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.course-list {
+  list-style: none;
+  padding: 0;
+}
+
+.course-list-item {
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.enroll-button {
+  background-color: #3498db;
+  color: #fff;
+  margin-top: 20px;
+}
+
+.enroll-button:hover {
+  background-color: #2980b9;
+}
+
+.back-link {
+  display: inline-block;
+  color: #3498db;
+  margin-top: 20px;
+}
+
+.loading-message {
+  font-size: 1.2em;
+  color: #666;
+  margin-top: 20px;
+}
+</style>

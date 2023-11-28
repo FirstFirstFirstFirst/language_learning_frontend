@@ -2,7 +2,7 @@
   <q-page class="flex flex-center">
     <q-card dark bordered class="bg-grey-2 my-card q-px-md p-py-md">
       <div>
-        <h2 style="color: black; font-weight: 50">Login</h2>
+        <h2 style="color: black" class="text-big">Login</h2>
       </div>
       <q-card-section>
         <q-form @submit.prevent="login">
@@ -60,8 +60,7 @@ export default {
           console.log(response.data.user.role == "admin");
           if (response.data.user.role == "admin") {
             this.$router.push("/admin");
-          }
-          else {
+          } else {
             this.$router.push("/courses");
           }
         })
@@ -80,3 +79,43 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.text-big {
+  font-size: xx-large;
+  margin: 40px 40px 40px 20px;
+  font-weight: 600;
+  color: #333; /* Dark text color */
+}
+
+.my-card {
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
+}
+
+.q-input {
+  background-color: #f8f8f8; /* Light gray background for input fields */
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.q-btn {
+  background-color: #3498db; /* Blue color for the button */
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.q-btn:hover {
+  background-color: #2980b9; /* Darker blue on hover */
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 20px;
+  color: #666;
+}
+</style>
