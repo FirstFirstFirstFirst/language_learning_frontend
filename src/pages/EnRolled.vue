@@ -102,7 +102,7 @@ export default {
 
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/enrollment/getEnroll/${userId}`,
+        `https://language-learning-backend-rosy.vercel.app/api/enrollment/getEnroll/${userId}`,
         {
           headers: {
             "x-access-token": accessToken,
@@ -113,7 +113,7 @@ export default {
       // Fetch progress for each enrolled course
       for (const enrollment of response.data) {
         const progressResponse = await axios.get(
-          `http://localhost:3000/api/progress/${userId}/${enrollment.course_id}`,
+          `https://language-learning-backend-rosy.vercel.app/api/progress/${userId}/${enrollment.course_id}`,
           {
             headers: {
               "x-access-token": accessToken,

@@ -80,7 +80,7 @@ export default {
     this.userId = localStorage.getItem("user_id");
 
     axios
-      .get(`http://localhost:3000/api/courses/${this.courseId}`)
+      .get(`https://language-learning-backend-rosy.vercel.app/api/courses/${this.courseId}`)
       .then((response) => {
         this.course = response.data;
       })
@@ -94,7 +94,7 @@ export default {
     checkEnrollmentStatus() {
       axios
         .get(
-          `http://localhost:3000/api/enrollment/check/${this.userId}/${this.courseId}`,
+          `https://language-learning-backend-rosy.vercel.app/api/enrollment/check/${this.userId}/${this.courseId}`,
           {
             headers: {
               "x-access-token": this.accessToken,
@@ -116,7 +116,7 @@ export default {
       };
 
       axios
-        .post("http://localhost:3000/api/enrollment/", enrollmentData)
+        .post("https://language-learning-backend-rosy.vercel.app/api/enrollment/", enrollmentData)
         .then((response) => {
           console.log("Enrollment successful:", response.data);
           this.isEnrolled = true;

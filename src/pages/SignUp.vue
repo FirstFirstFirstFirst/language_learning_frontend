@@ -35,7 +35,10 @@
             />
           </div>
           <div class="login-link">
-            <text-caption>Registered? <router-link to="/">Login here</router-link></text-caption>
+            <text-caption
+              >Registered?
+              <router-link to="/">Login here</router-link></text-caption
+            >
           </div>
         </q-form>
       </q-card-section>
@@ -60,7 +63,8 @@ export default {
   },
   methods: {
     signUp() {
-      const apiUrl = "http://localhost:3000/api/auth/signup";
+      const apiUrl =
+        "https://language-learning-backend-rosy.vercel.app/api/auth/signup";
 
       axios
         .post(apiUrl, {

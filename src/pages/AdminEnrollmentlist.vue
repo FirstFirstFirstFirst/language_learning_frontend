@@ -51,7 +51,7 @@ export default {
         const accessToken = localStorage.getItem("accessToken");
 
         const response = await axios.get(
-          "http://localhost:3000/api/enrollment/allEnroll",
+          "https://language-learning-backend-rosy.vercel.app/api/enrollment/allEnroll",
           {
             headers: {
               "x-access-token": accessToken,
@@ -69,7 +69,7 @@ export default {
         const accessToken = localStorage.getItem("accessToken");
 
         await axios.delete(
-          `http://localhost:3000/api/enrollment/${enrollmentId}`,
+          `https://language-learning-backend-rosy.vercel.app/api/enrollment/${enrollmentId}`,
           {
             headers: {
               "x-access-token": accessToken,

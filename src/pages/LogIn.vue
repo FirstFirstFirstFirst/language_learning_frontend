@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     login() {
-      const apiUrl = "http://localhost:3000/api/auth/login";
+      const apiUrl = "https://language-learning-backend-rosy.vercel.app/api/auth/login";
 
       axios
         .post(apiUrl, {

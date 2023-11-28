@@ -89,7 +89,9 @@ export default {
   methods: {
     async fetchCourses() {
       try {
-        const response = await axios.get("http://localhost:3000/api/courses");
+        const response = await axios.get(
+          "https://language-learning-backend-rosy.vercel.app/api/courses"
+        );
         this.courses = response.data;
         console.log(response.data);
       } catch (error) {

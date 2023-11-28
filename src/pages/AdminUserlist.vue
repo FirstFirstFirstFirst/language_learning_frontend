@@ -34,7 +34,7 @@ export default {
     async fetchItems() {
       try {
         const accessToken = localStorage.getItem("accessToken");
-        const response = await axios.get("http://localhost:3000/api/auth/", {
+        const response = await axios.get("https://language-learning-backend-rosy.vercel.app/api/auth/", {
           headers: {
             "x-access-token": accessToken,
           },
