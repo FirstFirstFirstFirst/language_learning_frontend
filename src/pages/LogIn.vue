@@ -54,12 +54,16 @@ export default {
         })
         .then((response) => {
           console.log(response.data);
-
           localStorage.setItem("accessToken", response.data.accessToken);
           localStorage.setItem("user_id", response.data.user.user_id);
           localStorage.setItem("role", response.data.user.role);
-
-          this.$router.push("/courses");
+          console.log(response.data.user.role == "admin");
+          if (response.data.user.role == "admin") {
+            this.$router.push("/admin");
+          }
+          else {
+            this.$router.push("/courses");
+          }
         })
         .catch((error) => {
           if (

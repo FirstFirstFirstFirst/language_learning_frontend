@@ -26,6 +26,23 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/admin",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [
+      { path: "", component: () => import("pages/AdminHome.vue") },
+      {
+        path: "userlist",
+        name: "admin-user-list",
+        component: () => import("pages/AdminUserlist.vue"),
+      },
+      {
+        path: "enrollmentlist",
+        name: "admin-enrollment-list",
+        component: () => import("pages/AdminEnrollmentlist.vue"),
+      },
+    ],
+  },
 
   {
     path: "/:catchAll(.*)*",

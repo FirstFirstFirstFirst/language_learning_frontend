@@ -70,7 +70,6 @@ export default {
   mounted() {
     this.courseId = this.$route.params.id;
 
-    // Get accessToken from local storage
     this.accessToken = localStorage.getItem("accessToken");
     this.userId = localStorage.getItem("user_id");
 
